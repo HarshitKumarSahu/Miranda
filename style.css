@@ -1039,7 +1039,7 @@ body {
         font-size: 5.219vw;
     }
     #menu-page #menu-content {
-        height : calc(100vh - 40vw);
+        height : calc(100vh - 50vw);
         padding-top: 0vw;
     }
     #menu-content #contentCont {
