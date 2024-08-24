@@ -1673,9 +1673,13 @@ body {
     height: 7vw;
     overflow: hidden;
     margin-right: 1.5vw;
+    border: 0.1vw solid #1C1C19;
 }
 .ptimg img {
     height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 #element .element-cont p {
     font-family: domain-light;
