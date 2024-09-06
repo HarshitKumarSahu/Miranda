@@ -260,11 +260,12 @@ function menuAnim() {
     let bar2 = document.querySelector("#bar2");
     let menu = document.querySelector("#menu");
     let menupg = document.querySelector("#menu-page");
-    let isOpen = false; 
+    let isOpen = false;
 
     const orangeBar = document.querySelector('#orangeBar');
     const as = document.querySelectorAll('#contentCont a');
 
+    // Toggle menu animation
     menu.addEventListener("click", () => {
         let tl = gsap.timeline();
         
@@ -274,7 +275,7 @@ function menuAnim() {
                 y: 3,
                 rotate: "45deg",
                 duration: 0.7,
-                backgroundColor: "#CDC6BE" ,
+                backgroundColor: "#CDC6BE",
             }, "a");
             tl.to(bar2, {
                 y: -3,
@@ -282,62 +283,107 @@ function menuAnim() {
                 duration: 0.7,
                 backgroundColor: "#CDC6BE"
             }, "a");
-            tl.to(menupg , {
-                y : "100vh", 
-                duration : 1
+            tl.to(menupg, {
+                y: "100vh",
+                duration: 1
             }, "a");
             as.forEach(a => {
                 a.style.top = "0%";
-                let tl = gsap.timeline();
-                tl.from(a , {
-                    top : "25vh" ,
-                    duration : 0.7 , 
-                    delay : 0.8 ,
+                let linkTl = gsap.timeline();
+                linkTl.from(a, {
+                    top: "25vh",
+                    duration: 0.7,
+                    delay: 0.8,
                     ease: "power2.inOut"
                 });
-                tl.to(orangeBar , {
-                    width : "95%",
+                linkTl.to(orangeBar, {
+                    width: "95%",
                     duration: 0.7,
                     ease: "power2.inOut"
-                })
+                });
             });
         } else {
             orangeBar.style.width = "95%";
             as.forEach(a => {
                 a.style.top = "0%";
-                tl.to(orangeBar , {
-                    width : "0%",
+                tl.to(orangeBar, {
+                    width: "0%",
                     duration: 0.7,
                     ease: "power2.inOut"
                 });
-                tl.to(a , {
-                    top : "25vh" ,
-                    duration : 0.7 , 
+                tl.to(a, {
+                    top: "25vh",
+                    duration: 0.7,
                     ease: "power2.inOut"
-                },"b");
+                }, "b");
             });
             tl.to(bar1, {
                 y: 0,
                 rotate: "0deg",
-                duration: 0.7 ,
+                duration: 0.7,
                 backgroundColor: "#1C1C19",
             }, "b");
             tl.to(bar2, {
                 y: 0,
                 rotate: "0deg",
-                duration: 0.7 ,
+                duration: 0.7,
                 backgroundColor: "#1C1C19"
             }, "b");
-            tl.to(menupg , {
-                y : "0vh", 
-                duration : 1 ,
-                delay : 0.6
+            tl.to(menupg, {
+                y: "0vh",
+                duration: 1,
+                delay: 0.6
             }, "b");
         }
         isOpen = !isOpen;
     });
+
     bar1.style.zIndex = "999";
     bar2.style.zIndex = "999";
+
+    // Link click animation with redirection
+    const links = document.querySelectorAll('.animated-link');
+
+    links.forEach(link => {
+        link.addEventListener('click', function (e) {
+            e.preventDefault(); // Prevent default link behavior
+
+            let tl = gsap.timeline();
+            tl.to(orangeBar, {
+                width: "0%",
+                duration: 0.7,
+                ease: "power2.inOut"
+            });
+            as.forEach(a => {
+                tl.to(a, {
+                    top: "25vh",
+                    duration: 0.7,
+                    ease: "power2.inOut"
+                }, "b");
+            });
+            tl.to(bar1, {
+                y: 0,
+                rotate: "0deg",
+                duration: 0.7,
+                backgroundColor: "#1C1C19",
+            }, "b");
+            tl.to(bar2, {
+                y: 0,
+                rotate: "0deg",
+                duration: 0.7,
+                backgroundColor: "#1C1C19"
+            }, "b");
+            tl.to(menupg, {
+                y: "0vh",
+                duration: 1,
+                delay: 0.6,
+                onComplete: () => {
+                    // Redirect to the next page after the animation completes
+                    window.location.href = link.href;
+                }
+            }, "b");
+        });
+    });
 }
 
 menuAnim();
