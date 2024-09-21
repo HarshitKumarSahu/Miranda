@@ -1619,7 +1619,7 @@ body {
 }
 #about-pg2 #left p {
     width: 90%;
-    font-size: 2.344vw;
+    font-size: 4vh;
     font-family: domain-light;
     color: #21211F;
     display: flex;
